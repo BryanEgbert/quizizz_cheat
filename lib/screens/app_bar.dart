@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../json/questions_data/questions_quiz.dart';
-import '../services/screen_config.dart';
+import 'package:quizizz_cheat/json/questions_data/questions_quiz.dart';
+import 'package:quizizz_cheat/services/screen_config.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomSliverAppBar extends StatelessWidget {
+  const CustomSliverAppBar({
+    Key key,
+    @required this.question,
+  }) : super(key: key);
+
+  final question;
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
+  Widget build(BuildContext context) {
+    ScreenConfig().init(context);
     String username = question.data.quiz.createdBy.local.username;
     Info info = question.data.quiz.info;
     Stats stats = question.data.quiz.stats;
     String publishedVersion = question.data.quiz.publishedVersion;
-
-    ScreenConfig().init(context);
     return SliverAppBar(
       title: Text(
         "ID: ${question.data.quiz.id}",
@@ -27,7 +31,11 @@ class CustomAppBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Image.network(info.image, width: screenWidth(1), height: screenHeight(0.15),),
+              Image.network(
+                info.image,
+                width: screenWidth(1),
+                height: screenHeight(0.15),
+              ),
               Text(
                 "Created By: $username",
                 style: Theme.of(context).textTheme.headline1,
@@ -36,14 +44,14 @@ class CustomAppBar extends StatelessWidget {
                 children: [
                   Text(
                     "Subject: ",
-                     style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.headline1,
                   ),
                   Row(
                     children: List.generate(
                       info.subjects.length,
                       (index) => Text(
                         "${info.subjects[index].toString()}",
-                         style: Theme.of(context).textTheme.headline1,
+                        style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
                   ),
@@ -59,7 +67,7 @@ class CustomAppBar extends StatelessWidget {
                       info.topics.length,
                       (index) => Text(
                         "Topics: ${info.topics[index].toString()}",
-                         style: Theme.of(context).textTheme.headline1,
+                        style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
                   ),
@@ -71,7 +79,7 @@ class CustomAppBar extends StatelessWidget {
                 children: [
                   Text(
                     "Subtopics: ",
-                     style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.headline1,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +87,7 @@ class CustomAppBar extends StatelessWidget {
                       info.subtopics.length,
                       (index) => Text(
                         "> ${info.subtopics[index].toString()}",
-                         style: Theme.of(context).textTheme.headline1,
+                        style: Theme.of(context).textTheme.headline1,
                       ),
                     ),
                   ),
@@ -87,7 +95,7 @@ class CustomAppBar extends StatelessWidget {
               ),
               Text(
                 "Published Version: $publishedVersion",
-                 style: Theme.of(context).textTheme.headline1,
+                style: Theme.of(context).textTheme.headline1,
               ),
               SizedBox(height: 10.0),
               Row(
@@ -95,11 +103,11 @@ class CustomAppBar extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     "Total Players: ${stats.totalPlayers.toString()}",
-                     style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.headline2,
                   ),
                   Text(
                     "Played: ${stats.played.toString()} times",
-                     style: Theme.of(context).textTheme.headline2,
+                    style: Theme.of(context).textTheme.headline2,
                   )
                 ],
               )

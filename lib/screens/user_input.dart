@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'input_form.dart';
-import '../screens/home.dart';
 import '../services/screen_config.dart';
 
 class UserInput extends StatelessWidget {
@@ -23,9 +21,6 @@ class UserInput extends StatelessWidget {
             SizedBox(
               height: screenHeight(0.05),
             ),
-            LoginForm(onFormSaved: (String userInput) {
-              Navigator.of(context).pushReplacement(HomePage.route());
-            }),
             SizedBox(
               height: 10.0,
             ),

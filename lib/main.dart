@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizizz_cheat/screens/user_input.dart';
+import 'package:quizizz_cheat/screens/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +33,9 @@ class MyApp extends StatelessWidget {
               ),
         ),
         title: 'Quizizz cheat',
-        home: UserInput(),
+        home: Scaffold(
+          body: HomePage(),
+        )
       );
     
   }
