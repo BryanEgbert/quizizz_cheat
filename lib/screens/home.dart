@@ -1,45 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx/mobx.dart';
+import 'package:provider/provider.dart';
 import 'package:quizizz_cheat/screens/app_bar.dart';
 import 'package:quizizz_cheat/screens/questions.dart';
+import 'package:quizizz_cheat/screens/user_input.dart';
 import 'package:quizizz_cheat/services/screen_config.dart';
-import 'package:quizizz_cheat/state/question_store.dart';
+import 'package:quizizz_cheat/model/question_store.dart';
 
-class HomePage extends StatelessWidget {
-  final QuestionStore store = QuestionStore();
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
-  HomePage() {
-    store.getQuestion();
+class _HomePageState extends State<HomePage> {
+  QuestionStore _store;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _store ??= Provider.of<QuestionStore>(context);
   }
 
+  @override
   Widget build(BuildContext context) {
     ScreenConfig().init(context);
 
-    final future = store.questionFuture;
-    return Observer(
-      builder: (_) {
-        switch (future.status) {
-          case FutureStatus.pending:
-            return Center(child: CircularProgressIndicator());
+    return Scaffold(
+      body: Observer(
+        builder: (_) {
+          switch (_store.state) {
+            case StoreState.loading:
+              return Center(child: CircularProgressIndicator());
 
-          case FutureStatus.rejected:
-            return Center(child: Text("url not found"));
+            case StoreState.initial:
+              return UserInput();
 
-          case FutureStatus.fulfilled:
-            final question = future.result;
+            case StoreState.loaded:
+              return CustomScrollView(
+                slivers: [
+                  CustomSliverAppBar(question: _store.questionsData),
+                  CustomSliverList(question: _store.questionsData),
+                ],
+              );
 
-            return CustomScrollView(
-              slivers: [
-                CustomSliverAppBar(question: question),
-                CustomSliverList(
-                    question: question),
-              ],
-            );
-            break;
-        }
-        return Center(child: CircularProgressIndicator());
-      },
+              break;
+          }
+
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 }

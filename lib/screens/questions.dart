@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizizz_cheat/json/questions.dart';
 import 'package:quizizz_cheat/json/questions_data/questions_structure.dart';
 import 'package:quizizz_cheat/services/screen_config.dart';
 
@@ -8,7 +9,7 @@ class CustomSliverList extends StatelessWidget {
     @required this.question,
   }) : super(key: key);
 
-  final question;
+  final CoreData question;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ class CustomSliverList extends StatelessWidget {
                           : questionQuery.media[0].url,
                       fit: BoxFit.cover,
                     ),
+                    SizedBox(height: 10.0,),
                     Text(
                       "${questionLength + 1}. ${question.data.quiz.info.questions[questionLength].structure.query.text}",
                       style: Theme.of(context).textTheme.bodyText1,

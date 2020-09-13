@@ -9,6 +9,13 @@ part of 'question_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$QuestionStore on _QuestionStore, Store {
+  Computed<StoreState> _$stateComputed;
+
+  @override
+  StoreState get state => (_$stateComputed ??=
+          Computed<StoreState>(() => super.state, name: '_QuestionStore.state'))
+      .value;
+
   final _$questionFutureAtom = Atom(name: '_QuestionStore.questionFuture');
 
   @override
@@ -24,24 +31,36 @@ mixin _$QuestionStore on _QuestionStore, Store {
     });
   }
 
-  final _$_QuestionStoreActionController =
-      ActionController(name: '_QuestionStore');
+  final _$questionsDataAtom = Atom(name: '_QuestionStore.questionsData');
 
   @override
-  Future<dynamic> fetchQuestionData() {
-    final _$actionInfo = _$_QuestionStoreActionController.startAction(
-        name: '_QuestionStore.fetchQuestionData');
-    try {
-      return super.fetchQuestionData();
-    } finally {
-      _$_QuestionStoreActionController.endAction(_$actionInfo);
-    }
+  CoreData get questionsData {
+    _$questionsDataAtom.reportRead();
+    return super.questionsData;
+  }
+
+  @override
+  set questionsData(CoreData value) {
+    _$questionsDataAtom.reportWrite(value, super.questionsData, () {
+      super.questionsData = value;
+    });
+  }
+
+  final _$fetchQuestionDataAsyncAction =
+      AsyncAction('_QuestionStore.fetchQuestionData');
+
+  @override
+  Future<dynamic> fetchQuestionData(String value) {
+    return _$fetchQuestionDataAsyncAction
+        .run(() => super.fetchQuestionData(value));
   }
 
   @override
   String toString() {
     return '''
-questionFuture: ${questionFuture}
+questionFuture: ${questionFuture},
+questionsData: ${questionsData},
+state: ${state}
     ''';
   }
 }

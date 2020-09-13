@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:quizizz_cheat/model/question_store.dart';
 import 'package:quizizz_cheat/screens/home.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return Provider<QuestionStore>(
+      create: (context) => QuestionStore(),
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -33,10 +36,8 @@ class MyApp extends StatelessWidget {
               ),
         ),
         title: 'Quizizz cheat',
-        home: Scaffold(
-          body: HomePage(),
-        )
-      );
-    
+        home: HomePage(),
+      ),
+    );
   }
 }

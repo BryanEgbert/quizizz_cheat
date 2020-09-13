@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizizz_cheat/json/questions.dart';
 import 'package:quizizz_cheat/json/questions_data/questions_quiz.dart';
 import 'package:quizizz_cheat/services/screen_config.dart';
 
@@ -8,7 +9,7 @@ class CustomSliverAppBar extends StatelessWidget {
     @required this.question,
   }) : super(key: key);
 
-  final question;
+  final CoreData question;
   @override
   Widget build(BuildContext context) {
     ScreenConfig().init(context);
@@ -16,6 +17,7 @@ class CustomSliverAppBar extends StatelessWidget {
     Info info = question.data.quiz.info;
     Stats stats = question.data.quiz.stats;
     String publishedVersion = question.data.quiz.publishedVersion;
+    
     return SliverAppBar(
       title: Text(
         "ID: ${question.data.quiz.id}",
