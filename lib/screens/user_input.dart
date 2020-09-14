@@ -4,11 +4,9 @@ import 'package:quizizz_cheat/model/question_store.dart';
 import '../services/screen_config.dart';
 
 class UserInput extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     ScreenConfig().init(context);
-    TextEditingController _controller = TextEditingController();
 
     return Scaffold(
       body: Container(
@@ -28,23 +26,32 @@ class UserInput extends StatelessWidget {
             SizedBox(
               height: 10.0,
             ),
-            TextField(
-              controller: _controller,
-              textInputAction: TextInputAction.search,
-              decoration: InputDecoration(
-                fillColor: Colors.white,
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                hintText: 'Quizizz ID',
-              ),
-            ),
-            RaisedButton(onPressed: () {
-              submitResult(context, _controller.text);
-            })
+            UserTextField(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class UserTextField extends StatelessWidget {
+  const UserTextField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      onSubmitted: (url) => submitResult(context, url),
+      textInputAction: TextInputAction.search,
+      decoration: InputDecoration(
+        fillColor: Colors.white,
+        filled: true,
+        suffixIcon: Icon(Icons.search),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        hintText: "https://quizizz.com/quiz/quiz_ID",
       ),
     );
   }

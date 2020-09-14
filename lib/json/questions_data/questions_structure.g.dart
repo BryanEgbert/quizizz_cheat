@@ -33,7 +33,6 @@ Map<String, dynamic> _$ImagesToJson(Images instance) => <String, dynamic>{
 
 QuestionText _$QuestionTextFromJson(Map<String, dynamic> json) {
   return QuestionText(
-    math: json['math'] as Map<String, dynamic>,
     type: json['type'] as String,
     hasMath: json['hasMath'] as bool,
     media: json['media'] as List,
@@ -43,7 +42,6 @@ QuestionText _$QuestionTextFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$QuestionTextToJson(QuestionText instance) =>
     <String, dynamic>{
-      'math': instance.math,
       'type': instance.type,
       'hasMath': instance.hasMath,
       'media': instance.media,

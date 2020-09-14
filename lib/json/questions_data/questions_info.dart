@@ -17,7 +17,7 @@ class Questions {
 class Structure {
   String kind;
   Query query;
-  List<dynamic> options;
+  List<QuestionText> options;
   int answer;
 
   Structure({this.kind, this.query, this.options, this.answer});

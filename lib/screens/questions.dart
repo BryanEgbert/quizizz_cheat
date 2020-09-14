@@ -21,8 +21,10 @@ class CustomSliverList extends StatelessWidget {
         (context, questionLength) {
           Query questionQuery =
               question.data.quiz.info.questions[questionLength].structure.query;
-          List<dynamic> option = question
+          List<QuestionText> option = question
               .data.quiz.info.questions[questionLength].structure.options;
+          int answer = question
+              .data.quiz.info.questions[questionLength].structure.answer;
 
           return Padding(
             padding: const EdgeInsets.only(top: 8.0),
@@ -41,7 +43,9 @@ class CustomSliverList extends StatelessWidget {
                           : questionQuery.media[0].url,
                       fit: BoxFit.cover,
                     ),
-                    SizedBox(height: 10.0,),
+                    SizedBox(
+                      height: 10.0,
+                    ),
                     Text(
                       "${questionLength + 1}. ${question.data.quiz.info.questions[questionLength].structure.query.text}",
                       style: Theme.of(context).textTheme.bodyText1,
@@ -49,29 +53,24 @@ class CustomSliverList extends StatelessWidget {
                     Column(
                       children: List.generate(
                         option.length,
-                        (index) => Container(
-                          width: screenWidth(1),
-                          margin: EdgeInsets.only(top: 8.0),
-                          padding: EdgeInsets.symmetric(vertical: 10.0),
-                          decoration: BoxDecoration(
-                            color: (question
-                                        .data
-                                        .quiz
-                                        .info
-                                        .questions[questionLength]
-                                        .structure
-                                        .answer !=
-                                    index)
-                                ? Colors.redAccent
-                                : Colors.greenAccent[700],
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Text(
-                            option[index]['text'],
-                            style: Theme.of(context).textTheme.bodyText2,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                        (index) {
+                          return Container(
+                            width: screenWidth(1),
+                            margin: EdgeInsets.only(top: 8.0),
+                            padding: EdgeInsets.symmetric(vertical: 10.0),
+                            decoration: BoxDecoration(
+                              color: (answer != index)
+                                  ? Colors.redAccent
+                                  : Colors.greenAccent[700],
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Text(
+                              option[index].text,
+                              style: Theme.of(context).textTheme.bodyText2,
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],

@@ -24,7 +24,10 @@ Structure _$StructureFromJson(Map<String, dynamic> json) {
     query: json['query'] == null
         ? null
         : Query.fromJson(json['query'] as Map<String, dynamic>),
-    options: json['options'] as List,
+    options: (json['options'] as List)
+        ?.map((e) =>
+            e == null ? null : QuestionText.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     answer: json['answer'] as int,
   );
 }
@@ -32,6 +35,6 @@ Structure _$StructureFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$StructureToJson(Structure instance) => <String, dynamic>{
       'kind': instance.kind,
       'query': instance.query?.toJson(),
-      'options': instance.options,
+      'options': instance.options?.map((e) => e?.toJson())?.toList(),
       'answer': instance.answer,
     };

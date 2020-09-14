@@ -25,13 +25,12 @@ class Images {
 
 @JsonSerializable(explicitToJson: true)
 class QuestionText {
-  Map<String, Object> math;
   String type;
   bool hasMath;
   List<dynamic> media;
   String text;
 
-  QuestionText({this.math, this.type, this.hasMath, this.media,this.text});
+  QuestionText({this.type, this.hasMath, this.media,this.text});
 
   factory QuestionText.fromJson(Map<String, dynamic> json) => _$QuestionTextFromJson(json);
   Map<String, dynamic> toJson() => _$QuestionTextToJson(this);
