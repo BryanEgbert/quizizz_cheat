@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizizz_cheat/json/questions.dart';
+import 'package:quizizz_cheat/json/questions_data/questions_info.dart';
 import 'package:quizizz_cheat/json/questions_data/questions_structure.dart';
 import 'package:quizizz_cheat/services/screen_config.dart';
 
@@ -19,12 +20,8 @@ class CustomSliverList extends StatelessWidget {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, questionLength) {
-          Query questionQuery =
-              question.data.quiz.info.questions[questionLength].structure.query;
-          List<QuestionText> option = question
-              .data.quiz.info.questions[questionLength].structure.options;
-          int answer = question
-              .data.quiz.info.questions[questionLength].structure.answer;
+          Structure structure =
+              question.data.quiz.info.questions[questionLength].structure;
 
           return Padding(
             padding: const EdgeInsets.only(top: 8.0),
@@ -38,19 +35,37 @@ class CustomSliverList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Image.network(
-                      questionQuery.media.isEmpty
+                      (structure.query.media.isEmpty)
                           ? "https://moorestown-mall.com/noimage.gif"
-                          : questionQuery.media[0].url,
+                          : structure.query.media[0].url,
                       fit: BoxFit.cover,
                     ), // Image of the questions
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
-                      "${questionLength + 1}. ${question.data.quiz.info.questions[questionLength].structure.query.text}",
+                      "${questionLength + 1}. ${structure.query.text}",
                       style: Theme.of(context).textTheme.bodyText1,
                     ), // Question's index
-                    buildQuestionText(option, answer, context), // The questions
+                    buildQuestionText(structure.options, structure.answer,
+                        structure.kind, context), // The questions
+                    SizedBox(height: 10.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          "Type: ${structure.kind}",
+                          style: TextStyle(fontSize: 13.0, color: Colors.blue),
+                        ),
+                        (structure.kind == "MSQ")
+                            ? Text(
+                                "Answers: ${(structure.answer).map((e) => e).toString()}",
+                                style: TextStyle(
+                                    fontSize: 13.0, color: Colors.red),
+                              )
+                            : Text("."),
+                      ],
+                    ), // Question's type and answer index
                   ],
                 ),
               ),
@@ -62,8 +77,8 @@ class CustomSliverList extends StatelessWidget {
     );
   }
 
-  Column buildQuestionText(
-      List<QuestionText> option, int answer, BuildContext context) {
+  Column buildQuestionText(List<QuestionText> option, dynamic answer,
+      String kind, BuildContext context) {
     return Column(
       children: List.generate(
         option.length,
@@ -73,16 +88,23 @@ class CustomSliverList extends StatelessWidget {
             margin: EdgeInsets.only(top: 8.0),
             padding: EdgeInsets.symmetric(vertical: 10.0),
             decoration: BoxDecoration(
-              color: (answer != index)
-                  ? Colors.redAccent
-                  : Colors.greenAccent[700],
+              color: (kind == "MCQ")
+                  ? (answer != index)
+                      ? Colors.redAccent
+                      : Colors.greenAccent[700]
+                  : Colors.blueAccent,
               borderRadius: BorderRadius.circular(10.0),
             ),
-            child: Text(
-              option[index].text,
-              style: Theme.of(context).textTheme.bodyText2,
-              textAlign: TextAlign.center,
-            ),
+            child: ((option[index].text) != null)
+                ? Text(
+                    option[index].text,
+                    style: Theme.of(context).textTheme.bodyText2,
+                    textAlign: TextAlign.center,
+                  )
+                : Image.network(
+                    option[index].media[0]['url'],
+                    fit: BoxFit.contain,
+                  ),
           );
         },
       ),

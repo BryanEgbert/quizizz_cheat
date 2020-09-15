@@ -18,7 +18,9 @@ class Structure {
   String kind;
   Query query;
   List<QuestionText> options;
-  int answer;
+  var answer;
+
+
 
   Structure({this.kind, this.query, this.options, this.answer});
 

@@ -63,9 +63,9 @@ class CustomSliverAppBar extends StatelessWidget {
         ),
       ),
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize: Size.fromHeight(65),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 7.0),
           child: UserTextField(),
         ),
       ),

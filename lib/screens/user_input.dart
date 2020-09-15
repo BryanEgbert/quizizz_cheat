@@ -83,6 +83,7 @@ class _UserTextFieldState extends State<UserTextField> {
           ),
           hintText: "https://quizizz.com/quiz/quiz_ID",
           errorText: _formStore.error.url,
+          errorStyle: TextStyle(fontWeight: FontWeight.bold)
         ),
       ),
     );

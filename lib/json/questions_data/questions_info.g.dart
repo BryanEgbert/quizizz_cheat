@@ -28,7 +28,7 @@ Structure _$StructureFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : QuestionText.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    answer: json['answer'] as int,
+    answer: json['answer'],
   );
 }
 
