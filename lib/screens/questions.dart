@@ -42,44 +42,49 @@ class CustomSliverList extends StatelessWidget {
                           ? "https://moorestown-mall.com/noimage.gif"
                           : questionQuery.media[0].url,
                       fit: BoxFit.cover,
-                    ),
+                    ), // Image of the questions
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
                       "${questionLength + 1}. ${question.data.quiz.info.questions[questionLength].structure.query.text}",
                       style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                    Column(
-                      children: List.generate(
-                        option.length,
-                        (index) {
-                          return Container(
-                            width: screenWidth(1),
-                            margin: EdgeInsets.only(top: 8.0),
-                            padding: EdgeInsets.symmetric(vertical: 10.0),
-                            decoration: BoxDecoration(
-                              color: (answer != index)
-                                  ? Colors.redAccent
-                                  : Colors.greenAccent[700],
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Text(
-                              option[index].text,
-                              style: Theme.of(context).textTheme.bodyText2,
-                              textAlign: TextAlign.center,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    ), // Question's index
+                    buildQuestionText(option, answer, context), // The questions
                   ],
                 ),
               ),
             ),
           );
         },
-        childCount: questionLength,
+        childCount: questionLength, //  Total number of questions
+      ),
+    );
+  }
+
+  Column buildQuestionText(
+      List<QuestionText> option, int answer, BuildContext context) {
+    return Column(
+      children: List.generate(
+        option.length,
+        (index) {
+          return Container(
+            width: screenWidth(1),
+            margin: EdgeInsets.only(top: 8.0),
+            padding: EdgeInsets.symmetric(vertical: 10.0),
+            decoration: BoxDecoration(
+              color: (answer != index)
+                  ? Colors.redAccent
+                  : Colors.greenAccent[700],
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Text(
+              option[index].text,
+              style: Theme.of(context).textTheme.bodyText2,
+              textAlign: TextAlign.center,
+            ),
+          );
+        },
       ),
     );
   }
