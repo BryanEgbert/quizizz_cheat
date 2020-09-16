@@ -35,15 +35,17 @@ class CustomSliverAppBar extends StatelessWidget {
             // Else if there is no thumbnail, return blue container.
             (info.image != null)
                 ? Container(
-                    color: Color.fromRGBO(0, 0, 0, 0.7),
                     child: Image.network(
-                      info.image,
-                      width: screenWidth(1),
-                      height: screenHeight(1),
-                      fit: BoxFit.cover,
-                    ) // Thumbnail
+                    info.image,
+                    width: screenWidth(1),
+                    height: screenHeight(1),
+                    fit: BoxFit.cover,
+                  ) // Thumbnail
                     )
                 : Container(color: Colors.blue),
+
+            // Black overlay
+            Container(color: Color.fromRGBO(0, 0, 0, 0.7)),
 
             // Info about the creator, subjects, topics, subtipics, and players
             Padding(
@@ -56,9 +58,9 @@ class CustomSliverAppBar extends StatelessWidget {
                     "Created By: $username",
                     style: Theme.of(context).textTheme.headline1,
                   ), //Created By
-                  buildSubjectRow(context, info),
-                  buildTopicRow(info, context),
-                  buildSubtopicRow(context, info),
+                  buildSubjectRow(context, info), // Subject
+                  buildTopicRow(info, context), // Topic
+                  buildSubtopicRow(context, info), // Subtopic
                   Text(
                     "Published Version: $publishedVersion",
                     style: Theme.of(context).textTheme.headline1,

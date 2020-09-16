@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 import 'package:quizizz_cheat/json/questions.dart';
 import 'package:quizizz_cheat/json/questions_data/questions_info.dart';
 import 'package:quizizz_cheat/json/questions_data/questions_structure.dart';
@@ -23,6 +25,7 @@ class CustomSliverList extends StatelessWidget {
           Structure structure =
               question.data.quiz.info.questions[questionLength].structure;
 
+          // This code display the content of the JSON file in the link
           return Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Card(
@@ -34,6 +37,15 @@ class CustomSliverList extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
+                    // Question's index + 1
+                    Text(
+                      "${questionLength + 1}.",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    SizedBox(height: 5.0),
+                    
+                    // If there is no image used for the question, display 'No Image' image
+                    // Else display the image used
                     Image.network(
                       (structure.query.media.isEmpty)
                           ? "https://moorestown-mall.com/noimage.gif"
@@ -43,13 +55,29 @@ class CustomSliverList extends StatelessWidget {
                     SizedBox(
                       height: 10.0,
                     ),
-                    Text(
-                      "${questionLength + 1}. ${structure.query.text}",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ), // Question's index
+
+                    // The question's content
+                    Html(
+                      data: "<p>${structure.query.text}</p>",
+                      style: {
+                        "p": Style(
+                          fontSize: FontSize(18.0),
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                        "div": Style(
+                          fontSize: FontSize(18.0),
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
+                      },
+                    ),
                     buildQuestionText(structure.options, structure.answer,
                         structure.kind, context), // The questions
                     SizedBox(height: 10.0),
+
+                    // Display the type of question and answer for questions whose
+                    // type is not "MCQ"
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -81,8 +109,9 @@ class CustomSliverList extends StatelessWidget {
       String kind, BuildContext context) {
     return Column(
       children: List.generate(
-        option.length,
+        option.length, // Length of the options in current question's index
         (index) {
+          // Display the content of the options
           return Container(
             width: screenWidth(1),
             margin: EdgeInsets.only(top: 8.0),
@@ -95,12 +124,27 @@ class CustomSliverList extends StatelessWidget {
                   : Colors.blueAccent,
               borderRadius: BorderRadius.circular(10.0),
             ),
+
+            // If the options is image-based, display the image
+            // Else if the question is text-based, display the text
             child: ((option[index].text) != null)
-                ? Text(
-                    option[index].text,
-                    style: Theme.of(context).textTheme.bodyText2,
-                    textAlign: TextAlign.center,
-                  )
+                ? (option[index].text.contains("<p>"))
+                    ? Html(
+                        data: option[index].text,
+                        style: {
+                          "p": Style(
+                            fontSize: FontSize(18.0),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            textAlign: TextAlign.center,
+                          )
+                        },
+                      )
+                    : Text(
+                        option[index].text,
+                        style: Theme.of(context).textTheme.bodyText2,
+                        textAlign: TextAlign.center,
+                      )
                 : Image.network(
                     option[index].media[0]['url'],
                     fit: BoxFit.contain,
