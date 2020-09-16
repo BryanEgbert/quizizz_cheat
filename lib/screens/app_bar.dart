@@ -23,6 +23,7 @@ class CustomSliverAppBar extends StatelessWidget {
       title: Text(
         "ID: ${question.data.quiz.id}",
         textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 17.0),
       ), //Quizizz ID
       centerTitle: true,
       expandedHeight: screenHeight(0.5),
@@ -30,19 +31,21 @@ class CustomSliverAppBar extends StatelessWidget {
         collapseMode: CollapseMode.parallax,
         background: Stack(
           children: [
+            // If the creator use a thumbnail, display in the app bar as a background
+            // Else if there is no thumbnail, return blue container.
             (info.image != null)
-            ? Image.network(
-              info.image,
-              width: screenWidth(1),
-              height: screenHeight(1),
-              fit: BoxFit.cover,
-            ) // Thumbnail
-            : Container(
-              color: Colors.blueAccent,
-              width: double.infinity,
-              height: double.infinity,
-            ),
-            Container(color: Color.fromRGBO(0, 0, 0, 0.7)),
+                ? Container(
+                    color: Color.fromRGBO(0, 0, 0, 0.7),
+                    child: Image.network(
+                      info.image,
+                      width: screenWidth(1),
+                      height: screenHeight(1),
+                      fit: BoxFit.cover,
+                    ) // Thumbnail
+                    )
+                : Container(color: Colors.blue),
+
+            // Info about the creator, subjects, topics, subtipics, and players
             Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 90.0),
               child: Column(
@@ -68,16 +71,16 @@ class CustomSliverAppBar extends StatelessWidget {
           ],
         ),
       ),
+
+      // Search Bar
       bottom: PreferredSize(
-        preferredSize: Size.fromHeight(65),
+        preferredSize: Size.fromHeight(60),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 7.0),
+          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
           child: UserTextField(),
         ),
       ),
-      floating: false,
       pinned: true,
-      snap: false,
     );
   }
 
