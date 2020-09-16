@@ -30,12 +30,18 @@ class CustomSliverAppBar extends StatelessWidget {
         collapseMode: CollapseMode.parallax,
         background: Stack(
           children: [
-            Image.network(
+            (info.image != null)
+            ? Image.network(
               info.image,
               width: screenWidth(1),
               height: screenHeight(1),
               fit: BoxFit.cover,
-            ), // Thumbnail
+            ) // Thumbnail
+            : Container(
+              color: Colors.blueAccent,
+              width: double.infinity,
+              height: double.infinity,
+            ),
             Container(color: Color.fromRGBO(0, 0, 0, 0.7)),
             Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 90.0),

@@ -29,6 +29,20 @@ class UserInput extends StatelessWidget {
               height: 10.0,
             ),
             UserTextField(),
+            SizedBox(height: 10.0),
+            SelectableText.rich(
+              TextSpan(
+                text: 'Copy this: ',
+                style: Theme.of(context).textTheme.bodyText1,
+                children: <TextSpan>[
+                  TextSpan(text:'https://quizizz.com/quiz/'),
+                  TextSpan(
+                    text: 'quiz ID',
+                    style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.w300, color: Colors.white70),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -71,20 +85,19 @@ class _UserTextFieldState extends State<UserTextField> {
         onChanged: (value) => _formStore.url = value,
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          suffixIcon: IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                submitResult(context, _controller.text);
-              }),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          hintText: "https://quizizz.com/quiz/quiz_ID",
-          errorText: _formStore.error.url,
-          errorStyle: TextStyle(fontWeight: FontWeight.bold)
-        ),
+            fillColor: Colors.white,
+            filled: true,
+            suffixIcon: IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  submitResult(context, _controller.text);
+                }),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            hintText: "https://quizizz.com/quiz/quiz_ID",
+            errorText: _formStore.error.url,
+            errorStyle: TextStyle(fontWeight: FontWeight.bold)),
       ),
     );
   }
