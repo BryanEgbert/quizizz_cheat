@@ -13,12 +13,30 @@ Query _$QueryFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Images.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    hasMath: json['hasMath'] as bool,
+    math: json['math'] == null
+        ? null
+        : Math.fromJson(json['math'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$QueryToJson(Query instance) => <String, dynamic>{
       'text': instance.text,
       'media': instance.media?.map((e) => e?.toJson())?.toList(),
+      'hasMath': instance.hasMath,
+      'math': instance.math?.toJson(),
+    };
+
+Math _$MathFromJson(Map<String, dynamic> json) {
+  return Math(
+    latex: (json['latex'] as List)?.map((e) => e as String)?.toList(),
+    template: json['template'] as String,
+  );
+}
+
+Map<String, dynamic> _$MathToJson(Math instance) => <String, dynamic>{
+      'latex': instance.latex,
+      'template': instance.template,
     };
 
 Images _$ImagesFromJson(Map<String, dynamic> json) {

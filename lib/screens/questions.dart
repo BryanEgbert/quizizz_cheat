@@ -43,7 +43,7 @@ class CustomSliverList extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     SizedBox(height: 5.0),
-                    
+
                     // If there is no image used for the question, display 'No Image' image
                     // Else display the image used
                     Image.network(
@@ -57,23 +57,63 @@ class CustomSliverList extends StatelessWidget {
                     ),
 
                     // The question's content
-                    Html(
-                      data: "<p>${structure.query.text}</p>",
-                      style: {
-                        "p": Style(
-                          fontSize: FontSize(18.0),
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
-                        "div": Style(
-                          fontSize: FontSize(18.0),
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
-                      },
-                    ),
+                    // If the questions hasMath = false. Just parse HTML to Dart as normal
+                    // Else if questions hasMath = true. Parse HTML to Dart and display {$index}(The math equation)
+                    // At the bottom of the questions. This is not a good code because i can't find a solution for this.
+                    (structure.query.hasMath == false)
+                        ? Html(
+                            data: "<p>${structure.query.text}</p>",
+                            style: {
+                              "p": Style(
+                                fontSize: FontSize(18.0),
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                              "div": Style(
+                                fontSize: FontSize(18.0),
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                              ),
+                            },
+                          )
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    Html(
+                                      data: "${structure.query.math.template}",
+                                      style: {
+                                        "p": Style(
+                                          fontSize: FontSize(18.0),
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.black,
+                                        ),
+                                        "div": Style(
+                                          fontSize: FontSize(18.0),
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.black,
+                                        ),
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text(
+                                "{i} = ${structure.query.math.latex.map((e) => e).toString()}",
+                                softWrap: true,
+                                style: TextStyle(
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
                     buildQuestionText(structure.options, structure.answer,
-                        structure.kind, context), // The questions
+                        structure.kind, context), // The options
                     SizedBox(height: 10.0),
 
                     // Display the type of question and answer for questions whose
@@ -89,7 +129,9 @@ class CustomSliverList extends StatelessWidget {
                             ? Text(
                                 "Answers: ${(structure.answer).map((e) => e).toString()}",
                                 style: TextStyle(
-                                    fontSize: 13.0, color: Colors.red),
+                                  fontSize: 13.0,
+                                  color: Colors.red,
+                                ),
                               )
                             : Text("."),
                       ],
