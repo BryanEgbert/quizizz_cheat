@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:quizizz_cheat/model/connection_store.dart';
 import 'package:quizizz_cheat/model/question_store.dart';
-import 'package:quizizz_cheat/screens/home.dart';
+import 'package:quizizz_cheat/screens/home_screeen/home.dart';
 import 'package:provider/provider.dart';
+import 'package:quizizz_cheat/services/questions_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,8 +12,13 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider<QuestionStore>(
-      create: (context) => QuestionStore(),
+    return MultiProvider(
+      providers: [
+        Provider<QuestionStore>(
+          create: (context) => QuestionStore(QuestionsService()),
+        ),
+        Provider<ConnectivityStore>(create: (context) => ConnectivityStore()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(

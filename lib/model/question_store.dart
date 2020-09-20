@@ -1,3 +1,6 @@
+
+import 'dart:io';
+
 import 'package:mobx/mobx.dart';
 import 'package:quizizz_cheat/json/questions.dart';
 import 'package:quizizz_cheat/services/questions_service.dart';
@@ -9,13 +12,18 @@ class QuestionStore = _QuestionStore with _$QuestionStore;
 enum StoreState {initial, loading, loaded}
 
 abstract class _QuestionStore with Store {
-  final QuestionsService questionsService = QuestionsService();
+  final QuestionsService questionsService;
 
+  _QuestionStore(this.questionsService);
   @observable
   ObservableFuture<CoreData> questionFuture;
 
   @observable
   CoreData questionsData;
+
+  @observable
+  String errorMessage;
+
 
   @computed
   StoreState get state {
@@ -29,8 +37,20 @@ abstract class _QuestionStore with Store {
   }
   @action
   Future fetchQuestionData(String value) async{
-    questionFuture = ObservableFuture(
-        questionsService.fetchQuestion(value));
-    questionsData = await questionFuture;
+    try{
+      // Refresh the error message
+      errorMessage = null;
+      questionFuture = ObservableFuture(
+        questionsService.fetchQuestion(value).then((value) => value));
+      questionsData = await questionFuture;
+    // If there is an error, give errorMessage a String value
+    // of the error
+    } on HttpException {
+      errorMessage = "Error 404: Data Not Found";
+    } on SocketException{
+      errorMessage = "Internet Not Found";
+    } on FormatException {
+      errorMessage = "Not valid url";
+    }
   }
 }

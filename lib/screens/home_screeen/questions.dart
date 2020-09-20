@@ -56,10 +56,11 @@ class CustomSliverList extends StatelessWidget {
                       height: 10.0,
                     ),
 
-                    // The question's content
-                    // If the questions hasMath = false. Just parse HTML to Dart as normal
-                    // Else if questions hasMath = true. Parse HTML to Dart and display {$index}(The math equation)
-                    // At the bottom of the questions. This is not a good code because i can't find a solution for this.
+                    /// The question's content.
+                    /// 
+                    /// If the questions [hasMath] = false. Just parse HTML to Dart as normal.
+                    /// Else if questions [hasMath] = true. Parse HTML to Dart and display {$index}(The math equation).
+                    /// At the bottom of the questions. This is not a good code because i can't find a solution for this..
                     (structure.query.hasMath == false)
                         ? Html(
                             data: "<p>${structure.query.text}</p>",
@@ -102,6 +103,7 @@ class CustomSliverList extends StatelessWidget {
                                 ),
                               ),
                               Text(
+                                // Displaying the {$index}
                                 "{i} = ${structure.query.math.latex.map((e) => e).toString()}",
                                 softWrap: true,
                                 style: TextStyle(

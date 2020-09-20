@@ -21,17 +21,18 @@ class CustomSliverAppBar extends StatelessWidget {
 
     return SliverAppBar(
       title: Text(
+        // Show the Quizizz ID
         "ID: ${question.data.quiz.id}",
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 17.0),
-      ), //Quizizz ID
+      ),
       centerTitle: true,
       expandedHeight: screenHeight(0.5),
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax,
         background: Stack(
           children: [
-            // If the creator use a thumbnail, display in the app bar as a background
+            // If the creator use a thumbnail, display it in the app bar as a background
             // Else if there is no thumbnail, return blue container.
             (info.image != null)
                 ? Container(
@@ -62,9 +63,10 @@ class CustomSliverAppBar extends StatelessWidget {
                   buildTopicRow(info, context), // Topic
                   buildSubtopicRow(context, info), // Subtopic
                   Text(
+                    // Showing the published version
                     "Published Version: $publishedVersion",
                     style: Theme.of(context).textTheme.headline1,
-                  ), // Published Version
+                  ),
                   SizedBox(height: 10.0),
                   buildPlayerRow(stats, context) // Amount of Players and Played
                 ],
@@ -86,6 +88,8 @@ class CustomSliverAppBar extends StatelessWidget {
     );
   }
 
+  /// For every subjects inside the list of subjects.
+  /// Display it in the [SliverAppBar] as String.
   Row buildSubjectRow(BuildContext context, Info info) {
     return Row(
       children: [

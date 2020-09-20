@@ -46,6 +46,21 @@ mixin _$QuestionStore on _QuestionStore, Store {
     });
   }
 
+  final _$errorMessageAtom = Atom(name: '_QuestionStore.errorMessage');
+
+  @override
+  String get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(String value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
+    });
+  }
+
   final _$fetchQuestionDataAsyncAction =
       AsyncAction('_QuestionStore.fetchQuestionData');
 
@@ -60,6 +75,7 @@ mixin _$QuestionStore on _QuestionStore, Store {
     return '''
 questionFuture: ${questionFuture},
 questionsData: ${questionsData},
+errorMessage: ${errorMessage},
 state: ${state}
     ''';
   }

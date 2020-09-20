@@ -81,7 +81,6 @@ class _UserTextFieldState extends State<UserTextField> {
     return Observer(
       builder: (_) => TextField(
         controller: _controller,
-        onSubmitted: (value) => _formStore.error.url,
         onChanged: (value) => _formStore.url = value,
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
@@ -90,6 +89,7 @@ class _UserTextFieldState extends State<UserTextField> {
             suffixIcon: IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {
+                  _formStore.startValidate();
                   submitResult(context, _controller.text);
                 }),
             border: OutlineInputBorder(

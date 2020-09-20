@@ -5,9 +5,10 @@ part 'questions.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class CoreData {
+  bool success;
   QuestionData data;
 
-  CoreData({this.data});
+  CoreData({this.success, this.data});
 
   factory CoreData.fromJson(Map<String, dynamic> json) => _$CoreDataFromJson(json);
   Map<String, dynamic> toJson() => _$CoreDataToJson(this);

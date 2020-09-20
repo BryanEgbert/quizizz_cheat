@@ -8,6 +8,7 @@ part of 'questions.dart';
 
 CoreData _$CoreDataFromJson(Map<String, dynamic> json) {
   return CoreData(
+    success: json['success'] as bool,
     data: json['data'] == null
         ? null
         : QuestionData.fromJson(json['data'] as Map<String, dynamic>),
@@ -15,6 +16,7 @@ CoreData _$CoreDataFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$CoreDataToJson(CoreData instance) => <String, dynamic>{
+      'success': instance.success,
       'data': instance.data?.toJson(),
     };
 
