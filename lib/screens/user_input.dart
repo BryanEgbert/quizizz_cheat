@@ -60,12 +60,13 @@ class UserTextField extends StatefulWidget {
 }
 
 class _UserTextFieldState extends State<UserTextField> {
-  final FormStore _formStore = FormStore();
+  FormStore _formStore;
   final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    _formStore = Provider.of<FormStore>(context);
     _formStore.validate();
   }
 

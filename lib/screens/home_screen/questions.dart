@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
-import 'package:quizizz_cheat/json/questions.dart';
-import 'package:quizizz_cheat/json/questions_data/questions_info.dart';
-import 'package:quizizz_cheat/json/questions_data/questions_structure.dart';
-import 'package:quizizz_cheat/services/screen_config.dart';
+import '../../json/questions.dart';
+import '../../json/questions_data/questions_info.dart';
+import '../../json/questions_data/questions_structure.dart';
+import '../../services/screen_config.dart';
 
 class CustomSliverList extends StatelessWidget {
   const CustomSliverList({

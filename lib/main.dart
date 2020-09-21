@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:quizizz_cheat/model/connection_store.dart';
-import 'package:quizizz_cheat/model/question_store.dart';
-import 'package:quizizz_cheat/screens/home_screeen/home.dart';
+import 'package:flutter/services.dart';
+import './model/connection_store.dart';
+import './model/form_validation_store.dart';
+import './model/question_store.dart';
+import './screens/home_screen/home.dart';
 import 'package:provider/provider.dart';
-import 'package:quizizz_cheat/services/questions_service.dart';
+import './services/questions_service.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  
   runApp(MyApp());
 }
 
@@ -17,7 +25,12 @@ class MyApp extends StatelessWidget {
         Provider<QuestionStore>(
           create: (context) => QuestionStore(QuestionsService()),
         ),
-        Provider<ConnectivityStore>(create: (context) => ConnectivityStore()),
+        Provider<ConnectivityStore>(
+          create: (context) => ConnectivityStore(),
+        ),
+        Provider<FormStore>(
+          create: (context) => FormStore(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

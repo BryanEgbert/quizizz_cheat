@@ -1,14 +1,14 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:quizizz_cheat/model/connection_store.dart';
-import 'package:quizizz_cheat/screens/home_screeen/app_bar.dart';
-import 'package:quizizz_cheat/screens/home_screeen/questions.dart';
-import 'package:quizizz_cheat/screens/user_input.dart';
-import 'package:quizizz_cheat/services/screen_config.dart';
-import 'package:quizizz_cheat/model/question_store.dart';
+import 'package:connectivity/connectivity.dart';
+import '../../model/connection_store.dart';
+import '../../model/question_store.dart';
+import './app_bar.dart';
+import './questions.dart';
+import '../user_input.dart';
+import '../../services/screen_config.dart';
 
 class HomePage extends StatefulWidget {
   @override

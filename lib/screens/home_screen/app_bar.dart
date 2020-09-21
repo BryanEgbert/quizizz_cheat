@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quizizz_cheat/json/questions.dart';
-import 'package:quizizz_cheat/json/questions_data/questions_quiz.dart';
-import 'package:quizizz_cheat/screens/user_input.dart';
-import 'package:quizizz_cheat/services/screen_config.dart';
+import '../../json/questions.dart';
+import '../../json/questions_data/questions_quiz.dart';
+import '../user_input.dart';
+import '../../services/screen_config.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
   const CustomSliverAppBar({

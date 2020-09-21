@@ -38,7 +38,7 @@ abstract class _QuestionStore with Store {
   @action
   Future fetchQuestionData(String value) async{
     try{
-      // Refresh the error message
+      // Reset the error message
       errorMessage = null;
       questionFuture = ObservableFuture(
         questionsService.fetchQuestion(value).then((value) => value));
