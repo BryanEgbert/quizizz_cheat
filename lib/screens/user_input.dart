@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:quizizz_cheat/model/form_validation_store.dart';
-import 'package:quizizz_cheat/model/question_store.dart';
+import '../model/form_validation_store.dart';
+import '../model/question_store.dart';
 import '../services/screen_config.dart';
 
 class UserInput extends StatelessWidget {
@@ -13,7 +13,7 @@ class UserInput extends StatelessWidget {
     return Scaffold(
       body: Container(
         height: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         color: Colors.blueAccent,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -35,11 +35,14 @@ class UserInput extends StatelessWidget {
                 text: 'Copy this: ',
                 style: Theme.of(context).textTheme.bodyText1,
                 children: <TextSpan>[
-                  TextSpan(text:'https://quizizz.com/quiz/'),
+                  TextSpan(text: 'https://quizizz.com/quiz/'),
                   TextSpan(
                     text: 'quiz ID',
-                    style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.w300, color: Colors.white70),
-                  )
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.white70),
+                  ),
                 ],
               ),
             )
@@ -66,7 +69,7 @@ class _UserTextFieldState extends State<UserTextField> {
   @override
   void initState() {
     super.initState();
-    _formStore = Provider.of<FormStore>(context);
+    _formStore = Provider.of<FormStore>(context, listen: false);
     _formStore.validate();
   }
 
@@ -85,20 +88,21 @@ class _UserTextFieldState extends State<UserTextField> {
         onChanged: (value) => _formStore.url = value,
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            suffixIcon: IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  _formStore.startValidate();
-                  submitResult(context, _controller.text);
-                }),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            hintText: "https://quizizz.com/quiz/quiz_ID",
-            errorText: _formStore.error.url,
-            errorStyle: TextStyle(fontWeight: FontWeight.bold)),
+          fillColor: Colors.white,
+          filled: true,
+          suffixIcon: IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                _formStore.startValidate();
+                submitResult(context, _controller.text);
+              }),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          hintText: "https://quizizz.com/quiz/quiz_ID",
+          errorText: _formStore.error.url,
+          errorStyle: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

@@ -158,8 +158,8 @@ class CustomSliverList extends StatelessWidget {
           // Display the content of the options
           return Container(
             width: screenWidth(1),
-            margin: EdgeInsets.only(top: 8.0),
-            padding: EdgeInsets.symmetric(vertical: 10.0),
+            margin: const EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
             decoration: BoxDecoration(
               color: (kind == "MCQ")
                   ? (answer != index)
@@ -172,6 +172,7 @@ class CustomSliverList extends StatelessWidget {
             // If the options is image-based, display the image
             // Else if the question is text-based, display the text
             child: ((option[index].text) != null)
+                // If the text contain HTML paragrafh text
                 ? (option[index].text.contains("<p>"))
                     ? Html(
                         data: option[index].text,
@@ -184,6 +185,7 @@ class CustomSliverList extends StatelessWidget {
                           )
                         },
                       )
+                    // Else if the text doesn't contain the tag
                     : Text(
                         option[index].text,
                         style: Theme.of(context).textTheme.bodyText2,

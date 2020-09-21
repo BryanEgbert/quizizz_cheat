@@ -24,9 +24,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _store ??= Provider.of<QuestionStore>(context);
-    _connectivityStore = Provider.of<ConnectivityStore>(context);
+    _store ??= Provider.of<QuestionStore>(context, listen: false);
+    _connectivityStore = Provider.of<ConnectivityStore>(context, listen: false);
     _reactionDisposer ??= <ReactionDisposer>[
+
       /// Checking the [errorMessage]. If [errorMessage] is not null,
       /// show [SnackBar] displaying the [errorMessage]
       reaction(

@@ -60,7 +60,7 @@ class CustomSliverAppBar extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline1,
                   ), //Created By
                   buildSubjectRow(context, info), // Subject
-                  buildTopicRow(info, context), // Topic
+                  buildTopicRow(context, info), // Topic
                   buildSubtopicRow(context, info), // Subtopic
                   Text(
                     // Showing the published version
@@ -110,7 +110,7 @@ class CustomSliverAppBar extends StatelessWidget {
     );
   }
 
-  Row buildTopicRow(Info info, BuildContext context) {
+  Row buildTopicRow(BuildContext context, Info info) {
     return Row(
       children: [
         Text(
