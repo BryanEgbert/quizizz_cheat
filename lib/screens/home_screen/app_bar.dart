@@ -14,11 +14,6 @@ class CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenConfig().init(context);
-    String username = question.data.quiz.createdBy.local.username;
-    Info info = question.data.quiz.info;
-    Stats stats = question.data.quiz.stats;
-    String publishedVersion = question.data.quiz.publishedVersion;
-
     return SliverAppBar(
       title: Text(
         // Show the Quizizz ID
@@ -27,54 +22,6 @@ class CustomSliverAppBar extends StatelessWidget {
         style: TextStyle(fontSize: 17.0),
       ),
       centerTitle: true,
-      expandedHeight: screenHeight(0.5),
-      flexibleSpace: FlexibleSpaceBar(
-        collapseMode: CollapseMode.parallax,
-        background: Stack(
-          children: [
-            // If the creator use a thumbnail, display it in the app bar as a background
-            // Else if there is no thumbnail, return blue container.
-            (info.image != null)
-                ? Container(
-                    child: Image.network(
-                    info.image,
-                    width: screenWidth(1),
-                    height: screenHeight(1),
-                    fit: BoxFit.cover,
-                  ) // Thumbnail
-                    )
-                : Container(color: Colors.blue),
-
-            // Black overlay
-            Container(color: Color.fromRGBO(0, 0, 0, 0.7)),
-
-            // Info about the creator, subjects, topics, subtipics, and players
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 90.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Created By: $username",
-                    style: Theme.of(context).textTheme.headline1,
-                  ), //Created By
-                  buildSubjectRow(context, info), // Subject
-                  buildTopicRow(context, info), // Topic
-                  buildSubtopicRow(context, info), // Subtopic
-                  Text(
-                    // Showing the published version
-                    "Published Version: $publishedVersion",
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  SizedBox(height: 10.0),
-                  buildPlayerRow(stats, context) // Amount of Players and Played
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
 
       // Search Bar
       bottom: PreferredSize(
