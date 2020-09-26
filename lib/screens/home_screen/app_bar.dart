@@ -22,7 +22,6 @@ class CustomSliverAppBar extends StatelessWidget {
         style: TextStyle(fontSize: 17.0),
       ),
       centerTitle: true,
-
       // Search Bar
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(60),
@@ -31,7 +30,6 @@ class CustomSliverAppBar extends StatelessWidget {
           child: UserTextField(),
         ),
       ),
-      pinned: true,
     );
   }
 

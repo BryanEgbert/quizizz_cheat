@@ -1,6 +1,7 @@
 import 'dart:convert' as convert;
 import 'dart:io';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../json/questions.dart';
 
@@ -13,10 +14,8 @@ class QuestionsService {
         await (Connectivity().checkConnectivity());
     // If response.statusCode return 200(OK) then parse the data
     if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      CoreData parsedQuestions = CoreData.fromJson(jsonResponse);
 
-      return parsedQuestions;
+      return compute(parseQuestions, response.body);
 
       // If there is no connection while fetching the data.
       // throw SocketException
@@ -32,5 +31,9 @@ class QuestionsService {
     } else {
       throw FormatException();
     }
+  }
+  CoreData parseQuestions(String responseBody) {
+    final parsed = convert.jsonDecode(responseBody);
+    return CoreData.fromJson(parsed);
   }
 }

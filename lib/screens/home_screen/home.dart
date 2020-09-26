@@ -11,40 +11,45 @@ import '../user_input.dart';
 import '../../services/screen_config.dart';
 
 class HomePage extends StatefulWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  ScrollController _scrollController;
   QuestionStore _store;
   ConnectivityStore _connectivityStore;
   List<ReactionDisposer> _reactionDisposer;
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _store ??= Provider.of<QuestionStore>(context, listen: false);
     _connectivityStore = Provider.of<ConnectivityStore>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController = ScrollController(initialScrollOffset: 50.0);
+    });
     _reactionDisposer ??= <ReactionDisposer>[
-
       /// Checking the [errorMessage]. If [errorMessage] is not null,
       /// show [SnackBar] displaying the [errorMessage]
       reaction(
         (_) => _store.errorMessage,
         (String message) {
-          _scaffoldKey.currentState.showSnackBar(
+          widget._scaffoldKey.currentState.showSnackBar(
             SnackBar(
               content: Text(message),
             ),
           );
         },
       ),
+
       /// Show [SnackBar] everytime if [ConnectivityStore.connectivityStream.value] changes
       /// with delay of 4000 milliseconds
       reaction(
         (_) => _connectivityStore.connectivityStream.value,
-        (result) => _scaffoldKey.currentState.showSnackBar(
+        (result) => widget._scaffoldKey.currentState.showSnackBar(
           SnackBar(
             content: Text(
               result == ConnectivityResult.none
@@ -53,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        delay: 4000
+        delay: 4000,
       ),
     ];
   }
@@ -70,9 +75,10 @@ class _HomePageState extends State<HomePage> {
     ScreenConfig().init(context);
 
     return Scaffold(
-      key: _scaffoldKey,
-      /// Checking [StoreState] 
-      /// 
+      key: widget._scaffoldKey,
+
+      /// Checking [StoreState]
+      ///
       /// If [StoreState.loading] return [CircularProgressIndicator] wrap with a [Center].
       /// Else if [StoreState.initial] return [UserInput()].
       /// If [StoreState.loaded] return [CostumScrollView] that contain [CustomSliverAppBar()]
@@ -87,11 +93,18 @@ class _HomePageState extends State<HomePage> {
               return UserInput();
 
             case StoreState.loaded:
-              return CustomScrollView(
-                slivers: [
-                  CustomSliverAppBar(question: _store.questionsData),
-                  CustomSliverList(question: _store.questionsData),
-                ],
+              return Scrollbar(
+                isAlwaysShown: true,
+                controller: _scrollController,
+                child: CustomScrollView(
+                  slivers: [
+                    CustomSliverAppBar(question: _store.questionsData),
+                    CustomSliverList(
+                      question: _store.questionsData,
+                      scrollController: _scrollController,
+                    ),
+                  ],
+                ),
               );
 
               break;
