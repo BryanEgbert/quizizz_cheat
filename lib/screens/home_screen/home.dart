@@ -12,13 +12,13 @@ import '../../services/screen_config.dart';
 
 class HomePage extends StatefulWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  ScrollController _scrollController;
   QuestionStore _store;
   ConnectivityStore _connectivityStore;
   List<ReactionDisposer> _reactionDisposer;
@@ -28,11 +28,11 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
     _store ??= Provider.of<QuestionStore>(context, listen: false);
     _connectivityStore = Provider.of<ConnectivityStore>(context, listen: false);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollController = ScrollController(initialScrollOffset: 50.0);
-    });
+    // The reaction
     _reactionDisposer ??= <ReactionDisposer>[
-      /// Checking the [errorMessage]. If [errorMessage] is not null,
+      /// Checking the [errorMessage]. 
+      /// 
+      /// If [errorMessage] is not null,
       /// show [SnackBar] displaying the [errorMessage]
       reaction(
         (_) => _store.errorMessage,
@@ -95,13 +95,13 @@ class _HomePageState extends State<HomePage> {
             case StoreState.loaded:
               return Scrollbar(
                 isAlwaysShown: true,
-                controller: _scrollController,
+                controller: widget._scrollController,
                 child: CustomScrollView(
                   slivers: [
                     CustomSliverAppBar(question: _store.questionsData),
                     CustomSliverList(
                       question: _store.questionsData,
-                      scrollController: _scrollController,
+                      scrollController: widget._scrollController,
                     ),
                   ],
                 ),
@@ -109,7 +109,6 @@ class _HomePageState extends State<HomePage> {
 
               break;
           }
-
           return Center(child: CircularProgressIndicator());
         },
       ),
