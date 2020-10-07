@@ -24,10 +24,7 @@ abstract class _FormStore with Store {
     if (value.isEmpty) {
       error.url = 'Cannot be blank';
       return;
-    } else if (value.length < 26 && !value.contains("/")) {
-      error.url = 'Not a valid url';
-      return;
-    } 
+    }
   }
 
   void dispose() {
@@ -46,6 +43,6 @@ abstract class _FormValidationStore with Store {
   String url;
 
   @computed
-  bool get hasError => url != null || url.length > 25 || url.contains("/");
+  bool get hasError => url != null;
 }
 

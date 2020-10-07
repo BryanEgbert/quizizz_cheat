@@ -49,9 +49,9 @@ abstract class _QuestionStore with Store {
     } on HttpException {
       errorMessage = "Error 404: Data Not Found";
     } on SocketException{
-      errorMessage = "Internet Not Found";
+      errorMessage = "No connection";
     } on FormatException {
-      errorMessage = "Not valid url";
+      errorMessage = "ID not valid";
     }
   }
 }
