@@ -8,7 +8,7 @@ import '../json/questions.dart';
 /// Parse the JSON file.
 class QuestionsService {
   Future<CoreData> fetchQuestion(String url) async {
-    final response = await http.get("https://cors-anywhere.herokuapp.com/$url");
+    final response = await http.get("https://cors-anywhere.herokuapp.com/https://quizizz.com/quiz/$url");
 
     ConnectivityResult connectivityResult =
         await (Connectivity().checkConnectivity());
