@@ -26,6 +26,13 @@ class UserInput extends StatelessWidget {
               height: screenHeight(0.05),
             ),
             UserTextField(),
+            SizedBox(height: 10.0),
+            Text(
+              "Warning: ScrollBar is not draggable, for PC user please use your mouse and drag it like you're on a phone.",
+              style: TextStyle(color: Colors.red, fontSize: 15.0),
+              textAlign: TextAlign.center,
+              softWrap: true,
+            ),
           ],
         ),
       ),
