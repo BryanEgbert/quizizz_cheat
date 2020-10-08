@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './model/connection_store.dart';
 import './model/form_validation_store.dart';
 import './model/question_store.dart';
 import './screens/home_screen/home.dart';
@@ -24,9 +23,6 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<QuestionStore>(
           create: (context) => QuestionStore(QuestionsService()),
-        ),
-        Provider<ConnectivityStore>(
-          create: (context) => ConnectivityStore(),
         ),
         Provider<FormStore>(
           create: (context) => FormStore(),

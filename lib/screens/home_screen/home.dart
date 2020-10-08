@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:connectivity/connectivity.dart';
-import '../../model/connection_store.dart';
 import '../../model/question_store.dart';
 import './app_bar.dart';
 import './questions.dart';
@@ -21,14 +19,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   QuestionStore _store;
   ScrollController _scrollController;
-  ConnectivityStore _connectivityStore;
   List<ReactionDisposer> _reactionDisposer;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _store ??= Provider.of<QuestionStore>(context, listen: false);
-    _connectivityStore = Provider.of<ConnectivityStore>(context, listen: false);
     _scrollController = ScrollController();
     // The reaction
     _reactionDisposer ??= <ReactionDisposer>[
@@ -45,22 +41,6 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         },
-      ),
-
-      /// Show [SnackBar] everytime if [ConnectivityStore.connectivityStream.value] changes
-      /// with delay of 4000 milliseconds
-      reaction(
-        (_) => _connectivityStore.connectivityStream.value,
-        (result) => widget._scaffoldKey.currentState.showSnackBar(
-          SnackBar(
-            content: Text(
-              result == ConnectivityResult.none
-                  ? "No Internet Connection"
-                  : "You\"re Online",
-            ),
-          ),
-        ),
-        delay: 4000,
       ),
     ];
   }
