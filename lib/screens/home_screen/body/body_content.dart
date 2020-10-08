@@ -132,7 +132,7 @@ class BodyContent extends StatelessWidget {
   }
 }
 
-Column buildQuestionText(List<QuestionText> option, dynamic answer, String kind,
+Column buildQuestionText(List<QuestionText> option, int answer, String kind,
     BuildContext context) {
   return Column(
     children: List.generate(
@@ -154,7 +154,7 @@ Column buildQuestionText(List<QuestionText> option, dynamic answer, String kind,
 
           // If the options is image-based, display the image
           // Else if the question is text-based, display the text
-          child: ((option[index].text) != null)
+          child: ((option[index].text) != "" || (option[index].text) != "")
               // If the text contain HTML paragrafh text
               ? (option[index].text.contains("<p>"))
                   ? Html(
@@ -175,8 +175,10 @@ Column buildQuestionText(List<QuestionText> option, dynamic answer, String kind,
                       textAlign: TextAlign.center,
                     )
               : Image.network(
-                  option[index].media[0]['url'],
+                  option[index].media[0]["url"],
                   fit: BoxFit.contain,
+                  width: 100.0,
+                  height: 150.0
                 ),
         );
       },
