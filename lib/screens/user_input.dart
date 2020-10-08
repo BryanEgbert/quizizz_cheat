@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../model/form_validation_store.dart';
 import '../model/question_store.dart';
 import '../services/screen_config.dart';
@@ -27,6 +28,20 @@ class InitialHomeScreen extends StatelessWidget {
               height: 10.0,
             ),
             UserTextField(),
+            SizedBox(height: 10.0),
+            RaisedButton(
+              child: Text("See The Guide"),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0),),
+              color: Colors.greenAccent,
+              onPressed: () async{
+                const url = 'https://github.com/BryanEgbert/quizizz_cheat';
+                if(await canLaunch(url)) {
+                  await launch(url);
+                }else {
+                  throw 'Could not launch $url';
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -65,10 +80,10 @@ class _UserTextFieldState extends State<UserTextField> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => ConstrainedBox(
-              constraints: BoxConstraints(
-                maxWidth: 700,
-              ),
-              child: TextField(
+        constraints: BoxConstraints(
+          maxWidth: 700,
+        ),
+        child: TextField(
           controller: _controller,
           onChanged: (value) => _formStore.url = value,
           onSubmitted: (value) {
