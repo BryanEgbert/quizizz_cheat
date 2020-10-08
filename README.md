@@ -1,4 +1,5 @@
 # Quizizz Cheat Website
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3126aefd-ed19-4077-8353-92e964796c2b/deploy-status)](https://app.netlify.com/sites/quizizz-cheat/deploys)
 This is a website made to cheat on quizizz :sweat_smile:. I know it's a sinful project. 
 **NOTE: This website is built using Flutter Web which is still in beta. The website will take longer for it to startup and the question in the web might not be in order with the question you see in quizizz**.
 ## Features:
