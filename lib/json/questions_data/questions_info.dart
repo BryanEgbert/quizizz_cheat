@@ -18,7 +18,7 @@ class Structure {
   String kind;
   Query query;
   List<QuestionText> options;
-  var answer;
+  dynamic answer;
 
 
 

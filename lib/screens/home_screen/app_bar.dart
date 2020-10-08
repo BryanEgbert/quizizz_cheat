@@ -4,8 +4,8 @@ import '../../json/questions_data/questions_quiz.dart';
 import '../user_input.dart';
 import '../../services/screen_config.dart';
 
-class CustomSliverAppBar extends StatelessWidget {
-  const CustomSliverAppBar({
+class CustomSliverHeader extends StatelessWidget {
+  const CustomSliverHeader({
     Key key,
     @required this.question,
   }) : super(key: key);
@@ -14,22 +14,25 @@ class CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenConfig().init(context);
-    return SliverAppBar(
-      title: Text(
-        // Show the Quizizz ID
-        "ID: ${question.data.quiz.id}",
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 17.0),
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          Text(
+            // Show the Quizizz ID
+            "ID: ${question.data.quiz.id}",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 17.0),
+          ),
+          PreferredSize(
+            preferredSize: Size.fromHeight(60),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
+              child: UserTextField(),
+            ),
+          ),
+        ],
       ),
-      centerTitle: true,
       // Search Bar
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
-          child: UserTextField(),
-        ),
-      ),
     );
   }
 

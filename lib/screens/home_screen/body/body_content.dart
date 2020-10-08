@@ -117,7 +117,7 @@ class BodyContent extends StatelessWidget {
               ),
               (structure.kind == "MSQ")
                   ? Text(
-                      "Answers: ${(structure.answer).map((e) => e).toString()}",
+                      "Answers: ${(structure.answer).map((e) => e.toString())}",
                       style: TextStyle(
                         fontSize: 13.0,
                         color: Colors.red,
@@ -132,7 +132,7 @@ class BodyContent extends StatelessWidget {
   }
 }
 
-Column buildQuestionText(List<QuestionText> option, int answer, String kind,
+Column buildQuestionText(List<QuestionText> option, dynamic answer, String kind,
     BuildContext context) {
   return Column(
     children: List.generate(
