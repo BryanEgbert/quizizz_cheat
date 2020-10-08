@@ -10,11 +10,9 @@ class CustomSliverList extends StatelessWidget {
   const CustomSliverList({
     Key key,
     @required this.question,
-    @required this.scrollController,
   }) : super(key: key);
 
   final CoreData question;
-  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +31,10 @@ class CustomSliverList extends StatelessWidget {
             mobileLayout: MobileBodyLayout(
               structure: structure,
               questionLength: questionLength,
-              scrollController: scrollController,
             ),
             desktopTabletLayout: DesktopTabletLayout(
               structure: structure,
               questionLength: questionLength,
-              scrollController: scrollController,
             ),
           );
         },

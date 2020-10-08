@@ -5,7 +5,7 @@ import '../model/form_validation_store.dart';
 import '../model/question_store.dart';
 import '../services/screen_config.dart';
 
-class UserInput extends StatelessWidget {
+class InitialHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenConfig().init(context);
@@ -13,6 +13,7 @@ class UserInput extends StatelessWidget {
     return Scaffold(
       body: Container(
         height: double.infinity,
+        width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         color: Colors.blueAccent,
         child: Column(
@@ -23,16 +24,9 @@ class UserInput extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText2,
             ),
             SizedBox(
-              height: screenHeight(0.05),
+              height: 10.0,
             ),
             UserTextField(),
-            SizedBox(height: 10.0),
-            Text(
-              "Warning: ScrollBar is not draggable, for PC user please use your mouse and drag it like you're on a phone.",
-              style: TextStyle(color: Colors.red, fontSize: 15.0),
-              textAlign: TextAlign.center,
-              softWrap: true,
-            ),
           ],
         ),
       ),
@@ -70,25 +64,35 @@ class _UserTextFieldState extends State<UserTextField> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => TextField(
-        controller: _controller,
-        onChanged: (value) => _formStore.url = value,
-        textInputAction: TextInputAction.done,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          suffixIcon: IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                _formStore.startValidate();
-                submitResult(context, _controller.text);
-              }),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
+      builder: (_) => ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: 700,
+              ),
+              child: TextField(
+          controller: _controller,
+          onChanged: (value) => _formStore.url = value,
+          onSubmitted: (value) {
+            _formStore.startValidate();
+            submitResult(context, _controller.text);
+          },
+          textInputAction: TextInputAction.done,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(10.0),
+            fillColor: Colors.white,
+            filled: true,
+            suffixIcon: IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  _formStore.startValidate();
+                  submitResult(context, _controller.text);
+                }),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            hintText: "quiz_ID",
+            errorText: _formStore.error.url,
+            errorStyle: TextStyle(fontWeight: FontWeight.bold),
           ),
-          hintText: "quiz_ID",
-          errorText: _formStore.error.url,
-          errorStyle: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
     );

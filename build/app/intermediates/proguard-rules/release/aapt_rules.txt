@@ -1,6 +1,0 @@
-# Referenced at C:\Users\bryan\source\repos\Flutter Projects\testing\quizizz_cheat\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:20
--keep class androidx.core.app.CoreComponentFactory { <init>(); }
-# Referenced at C:\Users\bryan\source\repos\Flutter Projects\testing\quizizz_cheat\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:25
--keep class com.example.quizizz_cheat.MainActivity { <init>(); }
-# Referenced at C:\Users\bryan\source\repos\Flutter Projects\testing\quizizz_cheat\build\app\intermediates\merged_manifests\release\AndroidManifest.xml:20
--keep class io.flutter.app.FlutterApplication { <init>(); }

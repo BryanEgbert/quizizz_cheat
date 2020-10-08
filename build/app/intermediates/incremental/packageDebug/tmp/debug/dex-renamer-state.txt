@@ -1,4 +1,0 @@
-#Mon Sep 21 12:17:37 ICT 2020
-base.0=C\:\\Users\\bryan\\source\\repos\\Flutter Projects\\testing\\quizizz_cheat\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
@@ -12,7 +13,6 @@ import '../../services/screen_config.dart';
 
 class HomePage extends StatefulWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final ScrollController _scrollController = ScrollController();
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   QuestionStore _store;
+  ScrollController _scrollController;
   ConnectivityStore _connectivityStore;
   List<ReactionDisposer> _reactionDisposer;
 
@@ -28,10 +29,11 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
     _store ??= Provider.of<QuestionStore>(context, listen: false);
     _connectivityStore = Provider.of<ConnectivityStore>(context, listen: false);
+    _scrollController = ScrollController();
     // The reaction
     _reactionDisposer ??= <ReactionDisposer>[
-      /// Checking the [errorMessage]. 
-      /// 
+      /// Checking the [errorMessage].
+      ///
       /// If [errorMessage] is not null,
       /// show [SnackBar] displaying the [errorMessage]
       reaction(
@@ -90,18 +92,18 @@ class _HomePageState extends State<HomePage> {
               return Center(child: CircularProgressIndicator());
 
             case StoreState.initial:
-              return UserInput();
+              return InitialHomeScreen();
 
             case StoreState.loaded:
-              return Scrollbar(
+              return CupertinoScrollbar(
                 isAlwaysShown: true,
-                controller: widget._scrollController,
+                controller: _scrollController,
                 child: CustomScrollView(
+                  controller: _scrollController,
                   slivers: [
                     CustomSliverAppBar(question: _store.questionsData),
                     CustomSliverList(
                       question: _store.questionsData,
-                      scrollController: widget._scrollController,
                     ),
                   ],
                 ),

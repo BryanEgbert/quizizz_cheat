@@ -8,12 +8,10 @@ class DesktopTabletLayout extends StatelessWidget {
     Key key,
     @required this.structure,
     @required this.questionLength,
-    @required this.scrollController,
   }) : super(key: key);
 
   final int questionLength;
   final Structure structure;
-  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
