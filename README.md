@@ -2,7 +2,11 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/1d88fbad-bb0b-4a45-a7eb-9df3a8ea3638/deploy-status)](https://app.netlify.com/sites/quizizz-cheat/deploys)\
 This is a website made to cheat on quizizz :sweat_smile:. I know it's a sinful project.\
 **NOTE: This website is built using Flutter Web which is still in beta. The website will take longer for it to startup and the question in the web might not be in order with the question you see in quizizz**.\
-**For phone user: If you want to write in the search bar. Long press the search bar and the keyboard will appear**
+**IMPORTANT: While Flutter Web is still in beta, it doesn't fully support all websites. Right now Flutter Web supports:**
+- Chrome(mobile & desktop)
+- Safari (mobile & desktop)
+- Edge (mobile & desktop)
+- Firefox (desktop)
 ## Features:
 - :white_check_mark: Responsive
 - :white_check_mark: Support image-based questions and Answers 
