@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import './model/form_validation_store.dart';
 import './model/question_store.dart';
 import './screens/home_screen/home.dart';
@@ -7,12 +6,6 @@ import 'package:provider/provider.dart';
 import './services/questions_service.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-  
   runApp(MyApp());
 }
 
