@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                 controller: _scrollController,
                 child: CustomScrollView(
                   controller: _scrollController,
-                  slivers: [
+                  slivers: <Widget>[
                     CustomSliverHeader(question: _store.questionsData),
                     CustomSliverList(
                       question: _store.questionsData,

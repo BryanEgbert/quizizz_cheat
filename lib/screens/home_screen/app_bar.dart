@@ -15,22 +15,25 @@ class CustomSliverHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenConfig().init(context);
     return SliverToBoxAdapter(
-      child: Column(
-        children: [
-          Text(
-            // Show the Quizizz ID
-            "ID: ${question.data.quiz.id}",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 17.0),
-          ),
-          PreferredSize(
-            preferredSize: Size.fromHeight(60),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
-              child: UserTextField(),
+      child: Container(
+        color: Colors.blueAccent,
+        child: Column(
+          children: [
+            Text(
+              // Show the Quizizz ID
+              "ID: ${question.data.quiz.id}",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 17.0),
             ),
-          ),
-        ],
+            PreferredSize(
+              preferredSize: Size.fromHeight(60),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 5.0),
+                child: UserTextField(),
+              ),
+            ),
+          ],
+        ),
       ),
       // Search Bar
     );
