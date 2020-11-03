@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import './model/form_validation_store.dart';
 import './model/question_store.dart';
-import './screens/home_screen/home.dart';
 import 'package:provider/provider.dart';
 import './services/questions_service.dart';
+import 'screens/home_screen/home.dart';
+import 'screens/user_input.dart';
 
 void main() {
   runApp(MyApp());
@@ -45,7 +46,12 @@ class MyApp extends StatelessWidget {
               ),
         ),
         title: 'Quizizz cheat',
-        home: HomePage(),
+        initialRoute: "/home",
+        routes: {
+          "/home": (context) => InitialHomeScreen(),
+          "/answer": (context) => HomePage(),
+        },
+        home: InitialHomeScreen(),
       ),
     );
   }

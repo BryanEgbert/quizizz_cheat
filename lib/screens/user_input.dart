@@ -31,13 +31,15 @@ class InitialHomeScreen extends StatelessWidget {
             SizedBox(height: 10.0),
             RaisedButton(
               child: Text("See The Guide"),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0),),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
               color: Colors.greenAccent,
-              onPressed: () async{
+              onPressed: () async {
                 const url = 'https://github.com/BryanEgbert/quizizz_cheat';
-                if(await canLaunch(url)) {
+                if (await canLaunch(url)) {
                   await launch(url);
-                }else {
+                } else {
                   throw 'Could not launch $url';
                 }
               },
@@ -52,6 +54,7 @@ class InitialHomeScreen extends StatelessWidget {
 class UserTextField extends StatefulWidget {
   const UserTextField({
     Key key,
+    
   }) : super(key: key);
 
   @override
@@ -60,7 +63,7 @@ class UserTextField extends StatefulWidget {
 
 class _UserTextFieldState extends State<UserTextField> {
   FormStore _formStore;
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
@@ -72,7 +75,7 @@ class _UserTextFieldState extends State<UserTextField> {
   @override
   void dispose() {
     _formStore.dispose();
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -84,11 +87,11 @@ class _UserTextFieldState extends State<UserTextField> {
           maxWidth: 700,
         ),
         child: TextField(
-          controller: _controller,
+          controller: controller,
           onChanged: (value) => _formStore.url = value,
           onSubmitted: (value) {
             _formStore.startValidate();
-            submitResult(context, _controller.text);
+            submitResult(context, controller.text);
           },
           textInputAction: TextInputAction.done,
           decoration: InputDecoration(
@@ -99,7 +102,8 @@ class _UserTextFieldState extends State<UserTextField> {
                 icon: Icon(Icons.search),
                 onPressed: () {
                   _formStore.startValidate();
-                  submitResult(context, _controller.text);
+                  submitResult(context, controller.text);
+                  Navigator.pushNamed(context, "/answer");
                 }),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),

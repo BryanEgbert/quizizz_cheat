@@ -75,24 +75,40 @@ class _HomePageState extends State<HomePage> {
               return InitialHomeScreen();
 
             case StoreState.loaded:
-              return CupertinoScrollbar(
-                isAlwaysShown: true,
-                controller: _scrollController,
-                child: CustomScrollView(
-                  controller: _scrollController,
-                  slivers: <Widget>[
-                    CustomSliverHeader(question: _store.questionsData),
-                    CustomSliverList(
-                      question: _store.questionsData,
-                    ),
-                  ],
-                ),
-              );
+              return TheAnswer(scrollController: _scrollController, store: _store);
 
               break;
           }
           return Center(child: CircularProgressIndicator());
         },
+      ),
+    );
+  }
+}
+
+class TheAnswer extends StatelessWidget {
+  const TheAnswer({
+    Key key,
+    @required ScrollController scrollController,
+    @required QuestionStore store,
+  }) : _scrollController = scrollController, _store = store, super(key: key);
+
+  final ScrollController _scrollController;
+  final QuestionStore _store;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoScrollbar(
+      isAlwaysShown: true,
+      controller: _scrollController,
+      child: CustomScrollView(
+        controller: _scrollController,
+        slivers: <Widget>[
+          CustomSliverHeader(question: _store.questionsData),
+          CustomSliverList(
+            question: _store.questionsData,
+          ),
+        ],
       ),
     );
   }
