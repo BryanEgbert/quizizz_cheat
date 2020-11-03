@@ -92,6 +92,7 @@ class _UserTextFieldState extends State<UserTextField> {
           onSubmitted: (value) {
             _formStore.startValidate();
             submitResult(context, controller.text);
+            Navigator.pushNamed(context, "/answer");
           },
           textInputAction: TextInputAction.done,
           decoration: InputDecoration(
